@@ -61,6 +61,9 @@ class ShuffleNetV2Block(nn.Module):
             self.branch1 = nn.Sequential()
             # 1x1 3x3 1x1
             self.branch2 = nn.Sequential(
+                # 3x3
+                nn.Conv2d(branch_features, branch_features, kernel_size=3, stride=self.stride, padding=1, bias=False),
+                nn.BatchNorm2d(branch_features),
                 #depthwise
                 nn.Conv2d(branch_features, branch_features, kernel_size=3, stride=self.stride, padding=1, bias=False, groups=branch_features),
                 nn.BatchNorm2d(branch_features),
@@ -149,9 +152,9 @@ class Stem(nn.Module):
 
         #3x3 conv
         self.conv1 = nn.Sequential(
-            # nn.Conv2d(in_channels, stem_channels, kernel_size=3, stride=2, padding=1,bias=False),
-            nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=2, padding=1,bias=False,groups=in_channels),
-            nn.Conv2d(in_channels, stem_channels, kernel_size=1, stride=1, padding=0,bias=False),
+            nn.Conv2d(in_channels, stem_channels, kernel_size=3, stride=2, padding=1,bias=False),
+            # nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=2, padding=1,bias=False,groups=in_channels),
+            # nn.Conv2d(in_channels, stem_channels, kernel_size=1, stride=1, padding=0,bias=False),
             nn.BatchNorm2d(stem_channels),
             nn.ReLU(inplace=True)
         )
@@ -376,7 +379,7 @@ class PoseHighResolutionNet(nn.Module):
         # self.layer1 = self._make_layer(Bottleneck, 64, 4)
 
         #stem net
-        self.stem = Stem(cfg,3,64,256)
+        self.stem = Stem(cfg,3,32,128)
 
         #stage1
         # downsample = nn.Sequential(nn.Conv2d(64, 256, kernel_size=1, stride=1, bias=False),
@@ -388,7 +391,7 @@ class PoseHighResolutionNet(nn.Module):
         num_channels = self.stage2_cfg['NUM_CHANNELS']
         block = ShuffleNetV2Block
 
-        self.transition1 = self._make_transition_layer([256], num_channels)
+        self.transition1 = self._make_transition_layer([128], num_channels)
         self.stage2, pre_stage_channels = self._make_stage(self.stage2_cfg, num_channels)
 
         #stage3
