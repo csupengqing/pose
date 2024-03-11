@@ -52,12 +52,12 @@ MODEL:
     - 'stage4'
     FINAL_CONV_KERNEL: 1
     STAGE2:
-      NUM_MODULES: 1
+      NUM_MODULES: 2
       NUM_BRANCHES: 2
       BLOCK: ShuffleNetV2Block
       NUM_BLOCKS:
       - 0
-      - 4
+      - 3
       NUM_CHANNELS:
       - 40
       - 80
@@ -69,21 +69,21 @@ MODEL:
       NUM_BLOCKS:
       - 0
       - 0
-      - 4
+      - 3
       NUM_CHANNELS:
       - 40
       - 80
       - 160
       FUSE_METHOD: SUM
     STAGE4:
-      NUM_MODULES: 3
+      NUM_MODULES: 2
       NUM_BRANCHES: 4
       BLOCK: ShuffleNetV2Block
       NUM_BLOCKS:
       - 0
       - 0
       - 0
-      - 4
+      - 3
       NUM_CHANNELS:
       - 40
       - 80
