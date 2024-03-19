@@ -57,7 +57,7 @@ MODEL:
       BLOCK: ShuffleNetV2Block
       NUM_BLOCKS:
       - 0
-      - 3
+      - 4
       NUM_CHANNELS:
       - 40
       - 80
@@ -69,7 +69,7 @@ MODEL:
       NUM_BLOCKS:
       - 0
       - 0
-      - 3
+      - 4
       NUM_CHANNELS:
       - 40
       - 80
@@ -83,7 +83,7 @@ MODEL:
       - 0
       - 0
       - 0
-      - 3
+      - 4
       NUM_CHANNELS:
       - 40
       - 80
