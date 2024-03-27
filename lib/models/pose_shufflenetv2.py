@@ -422,7 +422,7 @@ class PoseHighResolutionNet(nn.Module):
         num_channels = self.stage2_cfg['NUM_CHANNELS']
         block = ShuffleNetV2Block
 
-        self.transition1 = self._make_transition_layer([128], num_channels)
+        self.transition1 = self._make_transition_layer([256], num_channels)
         self.stage2, pre_stage_channels = self._make_stage(self.stage2_cfg, num_channels)
 
         #stage3
